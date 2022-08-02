@@ -1,3 +1,5 @@
+// do i need to require sequalize here so that the squealize funality works
+
 // import models
 const Product = require('./Product');
 const Category = require('./Category');
