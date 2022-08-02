@@ -6,6 +6,9 @@ const { Category, Product } = require('../../models');
 router.get('/', (req, res) => {
   // find all categories
   // be sure to include its associated Products
+  Category.findAll().then((categoryData) => {
+    res.json(categoryData);
+  });
 });
 
 router.get('/:id', (req, res) => {
@@ -21,8 +24,25 @@ router.put('/:id', (req, res) => {
   // update a category by its `id` value
 });
 
-router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
+router.delete('/:category_id', (req, res) => {
+  Category.destroy(
+    {
+      where:{
+        category_id: req.params.book_id
+      }
+    })
+    .then( results => {
+      console.log(results);
+      if(results === 0){
+        res.status(400).json({ message: "no changes made..."});
+      }
+      else{
+        res.json(results);
+      }
+    })
+    .catch( error => {
+      res.json(error);
+    });
 });
 
 module.exports = router;
